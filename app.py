@@ -12,7 +12,7 @@ st.title("🤖 DSA Interview Assistant")
 def load_model():
 
     generator = pipeline(
-        "text2text-generation",
+        task="text2text-generation",
         model="google/flan-t5-small"
     )
 
@@ -29,8 +29,14 @@ if st.button("Generate Answer"):
 
     else:
 
+        formatted_prompt = f"""
+Explain this DSA concept clearly:
+
+{prompt}
+"""
+
         response = generator(
-            prompt,
+            formatted_prompt,
             max_length=100
         )
 
