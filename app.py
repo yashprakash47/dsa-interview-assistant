@@ -8,6 +8,8 @@ st.set_page_config(
 
 st.title("🤖 DSA Interview Assistant")
 
+st.write("Ask any DSA-related question.")
+
 @st.cache_resource
 def load_model():
 
@@ -20,7 +22,7 @@ def load_model():
 
 generator = load_model()
 
-prompt = st.text_area("Ask a DSA Question")
+prompt = st.text_area("Enter your question")
 
 if st.button("Generate Answer"):
 
@@ -29,17 +31,13 @@ if st.button("Generate Answer"):
 
     else:
 
-        formatted_prompt = f"""
-Explain this DSA concept clearly:
-
-{prompt}
-"""
-
         response = generator(
-            formatted_prompt,
-            max_length=100
+            prompt,
+            max_length=80
         )
+
+        answer = response[0]["generated_text"]
 
         st.subheader("Answer")
 
-        st.write(response[0]["generated_text"])
+        st.write(answer)
